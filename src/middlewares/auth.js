@@ -18,13 +18,13 @@ const authConfig = require('../config/auth.json');
         if(!/^Bearer$/i.test(scheme))
             return res.status(401).send({erro: "Token mal formatado"});
 
-      jwt.verify(token, authConfig.secret,(err, decoded) => {
+        jwt.verify(token, authConfig.secret,(err, decoded) => {
           if(err) 
             return res.status(401).send({erro: "Token invalido"});
 
-        req.userID = decoded.id;
+        req.userId = decoded.id;
 
         return next();
-      })  
+      });  
 
     };

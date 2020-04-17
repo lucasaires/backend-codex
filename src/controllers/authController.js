@@ -10,13 +10,7 @@ module.exports = {
 
         try{
 
-        const {name, email, password} = req.body;
-
-        const user =  await User.create({
-            name,
-            email,
-            password
-        });
+        const user =  await User.create(req.body);
 
         user.password = undefined;
 
@@ -42,10 +36,6 @@ module.exports = {
         }
 
         user.password = undefined;
-
-        const token = jwt.sign({id: user.id}, authConfig.secret, {
-            expiresIn: 86400,
-        });
 
         return res.send({user, token: generateToken({id: user.id})});
     

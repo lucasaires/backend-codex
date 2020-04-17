@@ -1,11 +1,14 @@
 const Item = require('../models/itens');
 
+
 module.exports = {
     
     //criar um item 
     async create(req, res)  {
        
         try{
+            
+            console.log(req.userId)
             item = await Item.create({...req.body, user: req.userId});
             return res.send({item});
 
@@ -30,7 +33,7 @@ module.exports = {
     }, 
 
     async update(req,res){
-        return res.json();
+        return res.send( {user: req.userId});
     },
 
 
