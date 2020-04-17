@@ -23,4 +23,4 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0-rv9si.mongodb.net/market?re
 app.use(routes);
 
 
-app.listen(3333);
+app.listen(app.listen(process.env.PORT || 3333));
