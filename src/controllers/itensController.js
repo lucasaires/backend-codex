@@ -4,31 +4,42 @@ module.exports = {
     
     //criar um item 
     async create(req, res)  {
-        const {name, category, amount, value} = req.body;
-        const item = await Item.create({
-            name,
-            category,
-            amount,
-            value,
-        });
-        return res.json(item);
+       
+        try{
+            item = await Item.create({...req.body, user: req.userId});
+            return res.send({item});
+
+    }catch (err){
+        return res.status(400).send({error: "Erro Na criação do item"})
+    }
+        
+       
     },
 
 
     // retornar todos os itens
     async index(req, res){
-        const itens = await Item.find();
+        try{
+            const itens = await Item.find();
+            return res.json(itens);
 
-        return res.json(itens);
+        } catch(err){
+            return res.status(400).send({error: "Erro na listagem dos itens"})
+
+        }
     }, 
+
+    async update(req,res){
+        return res.json();
+    },
 
 
     //deletar um item 
     async delete(req, res){
 
-        const itens = await Item.delete
+        const item = await Item.findOneAndDelete(req.body.name)
 
-        return res.json();
+        return res.json(item);
 
     }
 
