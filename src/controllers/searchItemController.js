@@ -3,17 +3,34 @@ const Item = require('../models/itens');
 module.exports = {
 
     async searchByCategory(req, res){
-        const category = req.query;
-        const itens = await Item.find({
-            category : category
-        });
+        try{
+            const {category} = req.query;
 
-        return res.json(itens);
+            const itens = await Item.find({
+
+                category : {
+                    $in: category
+                },
+            })
+            
+            return res.json(itens);
+
+        } catch(err){
+            return res.status(400).send({error: "Erro na listagem dos itens"})
+
+        }
     }, 
 
-    async searchByName(req, res){
-        return res.json();
+    async searchById(req, res){
+        try{
+            const itens = await Item.findById(req.params.itemId);
+            
+            return res.json(itens);
 
-    }
+        } catch(err){
+            return res.status(400).send({error: "Erro na listagem dos itens"})
+
+        }
+    }, 
 
 }

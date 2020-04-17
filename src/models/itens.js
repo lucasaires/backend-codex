@@ -9,6 +9,7 @@ const ItensSchema = new mongoose.Schema({
     category: {
         type: String,
         require: true,
+        lowercase: true,
     },
 
     amount: {

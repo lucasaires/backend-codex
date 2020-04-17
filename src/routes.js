@@ -11,10 +11,11 @@ routes.post('/authenticate',authController.authenticate);
 
 routes.use(authMiddleware);
 routes.post('/itens', itensController.create);
-routes.put('/itens', itensController.update);
+routes.put('/itens/:itemId', itensController.update);
 routes.get('/itens', itensController.index);
-routes.get('/item/search', searchItemController.searchByCategory);
-routes.delete('/itens/:id', itensController.delete);
+routes.get('/itens/category/:itemCategory', searchItemController.searchByCategory);
+routes.get('/itens/item/:itemId', searchItemController.searchById);
+routes.delete('/itens/:itemId', itensController.delete);
 
 
 

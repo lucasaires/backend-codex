@@ -7,15 +7,12 @@ module.exports = {
     async create(req, res)  {
        
         try{
-            
-            console.log(req.userId)
             item = await Item.create({...req.body, user: req.userId});
             return res.send({item});
 
     }catch (err){
         return res.status(400).send({error: "Erro Na criação do item"})
     }
-        
        
     },
 
@@ -33,17 +30,34 @@ module.exports = {
     }, 
 
     async update(req,res){
-        return res.send( {user: req.userId});
+        try{
+
+            const{value,amount} = req.body; 
+
+            const item = await Item.findByIdAndUpdate(req.params.itemId, {
+                value,
+                amount 
+             } , {new: true });
+
+             return res.json(item);
+
+        }catch{
+            return res.status(400).send({error: "Erro na modificação do item"})
+        }
     },
 
 
     //deletar um item 
     async delete(req, res){
 
-        const item = await Item.findOneAndDelete(req.body.name)
+        try{
+            await Item.findByIdAndRemove(req.params.itemId);
+            
+            return res.json();
 
-        return res.json(item);
+        } catch(err){
+            return res.status(400).send({error: "Erro na remoção do item"})
 
+        }
     }
-
 };
