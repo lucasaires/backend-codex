@@ -3,7 +3,7 @@ const bcript = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const authConfig = require('../config/auth.json')
-const token =  require('../config/token')
+
 
 module.exports = {
 
@@ -14,6 +14,9 @@ module.exports = {
         const user =  await User.create(req.body);
 
         user.password = undefined;
+    
+        const token = jwt.sign({id: user.id}, authConfig.secret, {expiresIn: 86400});
+
         return res.send({user, token});   
 
     } catch (err){
@@ -38,6 +41,8 @@ module.exports = {
         }
 
         user.password = undefined;
+
+        const token = jwt.sign({id: user.id}, authConfig.secret, {expiresIn: 86400});
 
         return res.send({user, token});
     

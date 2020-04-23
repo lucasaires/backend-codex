@@ -3,8 +3,10 @@ const routes = require('./routes');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
+
 const app = express();
-app.use(cors);
+app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0-rv9si.mongodb.net/market?retryWrites=true&w=majority',{  
@@ -23,4 +25,4 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0-rv9si.mongodb.net/market?re
 app.use(routes);
 
 
-app.listen(app.listen(process.env.PORT || 3333));
+app.listen(process.env.PORT || 3333);
