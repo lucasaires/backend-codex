@@ -6,6 +6,9 @@ const authMiddleware = require('./middlewares/auth');
 
 const routes = express.Router();
 
+routes.get('/', (req, res) =>{
+    res.json({hello: "Market"})})
+
 routes.post('/register', authController.create);
 routes.post('/authenticate',authController.authenticate);
 
