@@ -1,4 +1,5 @@
 const Item = require('../models/itens');
+const Image = require('../models/image');
 
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
             return res.send({item});
 
     }catch (err){
-        return res.status(400).send({error: "Erro Na criação do item"})
+        return res.status(400).send({error: "Erro Na criação do item"});
     }
        
     },
@@ -24,7 +25,7 @@ module.exports = {
             return res.json(itens);
 
         } catch(err){
-            return res.status(400).send({error: "Erro na listagem dos itens"})
+            return res.status(400).send({error: "Erro na listagem dos itens"});
 
         }
     }, 
@@ -42,7 +43,7 @@ module.exports = {
              return res.json(item);
 
         }catch{
-            return res.status(400).send({error: "Erro na modificação do item"})
+            return res.status(400).send({error: "Erro na modificação do item"});
         }
     },
 
@@ -56,8 +57,28 @@ module.exports = {
             return res.json();
 
         } catch(err){
-            return res.status(400).send({error: "Erro na remoção do item"})
+            return res.status(400).send({error: "Erro na remoção do item"});
 
         }
+    },
+
+    async upload(req, res){
+
+        const{ originalname: name, size, filename:key} = req.file;
+
+        const image = await Image.create({
+            name,
+            size,
+            key,
+            item : req.params.itemId,
+            url: ''
+        });
+
+        const item = await Item.findById(req.params.itemId);
+        item.image = image;
+        
+
+        return res.json(item);
+
     }
 };

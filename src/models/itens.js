@@ -27,6 +27,12 @@ const ItensSchema = new mongoose.Schema({
         require: true,
     },
 
+    image:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Image',
+        require: true
+    },
+
     createdAt: {
         type: Date,
         default: Date.now,

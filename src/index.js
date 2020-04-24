@@ -8,6 +8,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0-rv9si.mongodb.net/market?retryWrites=true&w=majority',{  
      useNewUrlParser: true,
