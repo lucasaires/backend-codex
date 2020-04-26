@@ -14,7 +14,7 @@ routes.get('/', (req, res) =>{
 routes.post('/register', authController.create);
 routes.post('/authenticate',authController.authenticate);
 
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 routes.post('/itens', itensController.create);
 routes.post('/itens/upload/:itemId', multer(multerConfig).single("file"), itensController.upload);
 routes.put('/itens/:itemId', itensController.update);
